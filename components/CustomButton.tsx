@@ -16,6 +16,8 @@ export default function CustomButton({
           ? "bg-green-500"
           : colorScheme === "secondary"
           ? "bg-blue-500"
+          : colorScheme === "danger"
+          ? "bg-red-700"
           : colorScheme === "ghost"
           ? "bg-gray-300"
           : null

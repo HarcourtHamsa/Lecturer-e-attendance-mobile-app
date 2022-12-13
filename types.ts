@@ -2,6 +2,7 @@ export enum ColorScheme {
   primary = "primary",
   secondary = "secondary",
   ghost = "ghost",
+  danger = "danger",
 }
 
 export enum InputType {

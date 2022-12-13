@@ -1,15 +1,44 @@
-import { View, Text, Pressable } from "react-native";
-import React from "react";
-import CustomContainer from "../../components/CustomContainer";
+import React, { useState } from "react";
+import { View, Text, Pressable, Alert, ActivityIndicator } from "react-native";
 import CustomHeader from "../../components/CustomHeader";
 import { FONTS } from "../../theme";
 import CustomButton from "../../components/CustomButton";
 import { ColorScheme } from "../../types";
-import { AntDesign } from "@expo/vector-icons";
+import * as Location from "expo-location";
 
 export default function ClassInfo({ route, navigation }) {
+  const [classIsOnging, setClassIsOnging] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [location, setLocation] = useState<unknown>(null);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const { courseInfo } = route.params;
-  console.log(courseInfo);
+
+  async function handleStartClass() {
+    try {
+      // show loading indicator
+      setIsLoading(true);
+
+      let { status } = await Location.requestForegroundPermissionsAsync();
+
+      // checks for the status of the permission
+      if (status !== "granted") {
+        Alert.alert("Permission to access location was denied");
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+      setClassIsOnging(true);
+    } catch (error) {
+      Alert.alert(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  function handleEndClass() {
+    setClassIsOnging(false);
+  }
 
   return (
     <View className="flex-1">
@@ -25,7 +54,13 @@ export default function ClassInfo({ route, navigation }) {
           {courseInfo.description}
         </Text>
 
-        <CustomButton colorScheme={ColorScheme.secondary} label="Start Class" />
+        <CustomButton
+          colorScheme={
+            classIsOnging ? ColorScheme.danger : ColorScheme.secondary
+          }
+          label={classIsOnging ? "End Class" : "Start Class"}
+          onPress={classIsOnging ? handleEndClass : handleStartClass}
+        />
 
         <View className="my-4">
           <CustomButton
@@ -39,6 +74,14 @@ export default function ClassInfo({ route, navigation }) {
             View Attendance
           </Text>
         </Pressable>
+
+        {isLoading && (
+          <View className="w-screen h-screen bg-black/40 absolute justify-center items-center">
+            <View className="justify-center items-center w-32">
+              <ActivityIndicator size={"large"} color="white" />
+            </View>
+          </View>
+        )}
       </View>
     </View>
   );
