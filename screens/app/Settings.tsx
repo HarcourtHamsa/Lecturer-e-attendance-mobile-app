@@ -20,8 +20,8 @@ export default function Settings({ navigation }) {
           </Text>
         </View>
 
-        <TouchableOpacity className="p-4 mt-10 rounded-xl">
-          <Text style={FONTS.p} className="text-red-800 text-center">
+        <TouchableOpacity className="px-6 py-3 w-auto  mt-10 mx-auto rounded-full bg-red-600" onPress={() => navigation.navigate("SignInScreen")}>
+          <Text style={FONTS.p} className="text-white text-center w-fit">
             Sign out
           </Text>
         </TouchableOpacity>

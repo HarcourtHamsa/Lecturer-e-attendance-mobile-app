@@ -7,9 +7,9 @@ function useLoadedAssets() {
   async function loadAssets() {
     try {
       await Font.loadAsync({
-        "Inter-Regular": require("../assets/fonts/SFPRODISPLAYMEDIUM.otf"),
-        "Inter-Medium": require("../assets/fonts/SFPRODISPLAYMEDIUM.otf"),
-        "Inter-Bold": require("../assets/fonts/SFPRODISPLAYBOLD.otf"),
+        "Inter-Regular": require("../assets/fonts/BasierCircle-Regular.ttf"),
+        "Inter-Medium": require("../assets/fonts/BasierCircle-Medium.ttf"),
+        "Inter-Bold": require("../assets/fonts/BasierCircle-SemiBold.ttf"),
       });
     } catch (error) {
       console.log(error);

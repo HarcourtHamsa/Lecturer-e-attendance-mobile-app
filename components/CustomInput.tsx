@@ -17,7 +17,7 @@ export default function CustomInput({
   }
 
   return (
-    <View className="h-16 bg-gray-200 rounded-md border border-gray-300">
+    <View className="h-14 bg-gray-50 rounded-full border-2 px-6 border-gray-100 focus:border-zinc-400">
       {type === "password" ? (
         <View className="flex-1 justify-between flex-row align-middle relative">
           <TextInput
@@ -27,10 +27,10 @@ export default function CustomInput({
             className="flex-1 px-2"
             secureTextEntry={isOpen}
           />
-          <Pressable className="absolute right-3 top-6" onPress={toggle}>
+          <Pressable className="flex justify-center items-center pr-4" onPress={toggle}>
             <Feather
               name={isOpen ? "eye-off" : "eye"}
-              size={24}
+              size={18}
               color="#1f2937"
             />
           </Pressable>
@@ -41,7 +41,6 @@ export default function CustomInput({
           onChangeText={onChangeText}
           className="flex-1 px-2"
           style={FONTS.p}
-          type={type}
         />
       )}
     </View>

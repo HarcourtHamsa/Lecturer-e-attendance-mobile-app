@@ -11,7 +11,7 @@ export default function CustomLectureCard({
   onPress,
 }: ICustomLectureCard) {
   return (
-    <Pressable className="p-4 rounded-md my-2 border-2 border-gray-200" onPress={onPress}>
+    <Pressable className="p-4 rounded-xl my-2 border-2 bg-zinc-600/10 border-gray-200" onPress={onPress}>
       <View>
         <Image source={stackIcon} />
       </View>

@@ -17,13 +17,13 @@ export default function CustomButton({
           : colorScheme === "secondary"
           ? "bg-blue-500"
           : colorScheme === "danger"
-          ? "bg-red-700"
+          ? "bg-red-400"
           : colorScheme === "ghost"
           ? "bg-gray-300"
           : null
-      } px-6 py-4 rounded-2xl w-full items-center`}
+      } px-6 py-4 rounded-full w-full items-center`}
     >
-      <Text className="text-white text-lg" style={FONTS.p}>
+      <Text className="text-black text-lg" style={FONTS.p}>
         {label}
       </Text>
     </Pressable>

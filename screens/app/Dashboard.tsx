@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text } from "react-native";
 import CustomContainer from "../../components/CustomContainer";
 import { Feather } from "@expo/vector-icons";
@@ -6,18 +6,20 @@ import { Octicons } from "@expo/vector-icons";
 import { FONTS } from "../../theme";
 import CustomSearchBar from "../../components/CustomSearchBar";
 import CustomLectureCard from "../../components/CustomLectureCard";
-
-const classDetails = [
-  {
-    id: 1,
-    description:
-      "What follows within the Fundamentals section of this documentation is a tour of the most important aspects of React Navigation. It should cover enough for you to know how to build your typical small mobile application, and give you the background that you need to dive deeper into the more advanced parts of React Navigation.",
-    title: "Engineering Mathematics",
-    level: "COE 500 Level",
-  },
-];
+import { fetchCourses, getStorageKey } from "../../utils";
+import { ICourses } from "../../types";
 
 export default function Dashboard({ navigation }) {
+  const [courses, setCourses] = useState<ICourses[]>([]);
+
+  useEffect(() => {
+    async function getDataAsync() {
+      const res = await fetchCourses();
+      setCourses(res.results);
+    }
+
+    getDataAsync();
+  }, []);
   return (
     <CustomContainer>
       <View className="flex-row justify-between items-center">
@@ -29,38 +31,35 @@ export default function Dashboard({ navigation }) {
         {/* column 2 */}
         <View>
           {/* notification bell */}
-          <Octicons name="bell-fill" size={30} color="#52525b" />
+          <Octicons name="bell" size={30} color="#52525b" />
           <View className="w-4 h-4 bg-red-800 rounded-full absolute right-0  border-white z-10 flex items-center justify-center">
             <Text className="text-white">3</Text>
           </View>
         </View>
       </View>
       <CustomSearchBar placeholder="Search any course" />
-      {/* <Text className="my-2" style={FONTS.h2}>
-        Your Classes
-      </Text> */}
 
-      {classDetails.map((v) => {
+      <View className="flex flex-row justify-between items-center">
+      <Text className="my-2" style={FONTS.h2}>
+       Your Courses
+      </Text>
+
+      <Text className="text-gray-500 text-lg">View all</Text>
+
+      </View>
+
+      {courses.map((v) => {
         return (
           <CustomLectureCard
             key={v.id}
-            level="COE 500 Level"
-            title="Engineering Mathematics"
+            level={v.code}
+            title={v.title}
             onPress={() =>
               navigation.navigate("ClassInfoScreen", { courseInfo: v })
             }
           />
         );
       })}
-      {/* <CustomLectureCard level="COE 300 Level" title="Applied Electronics" />
-      <CustomLectureCard
-        level="COE 500 Level"
-        title="Antenna Design and Management"
-      />
-      <CustomLectureCard
-        level="COE 500 Level"
-        title="Reliability and Maintainability of Communication Systems"
-      /> */}
     </CustomContainer>
   );
 }

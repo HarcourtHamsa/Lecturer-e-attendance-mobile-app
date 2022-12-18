@@ -4,6 +4,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import fontIsLoading from "./hooks/useLoadedAssets";
 import Navigation from "./navigation/Index";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function App() {
   const isComplete = fontIsLoading();
@@ -13,7 +14,9 @@ export default function App() {
   } else {
     return (
       <SafeAreaProvider>
-        <Navigation />
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <Navigation />
+        </GestureHandlerRootView>
         <StatusBar backgroundColor={"#3b82f6"} style="dark" />
       </SafeAreaProvider>
     );

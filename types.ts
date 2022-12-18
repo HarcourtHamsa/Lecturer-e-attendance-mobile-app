@@ -28,3 +28,19 @@ export interface ICustomLectureCard {
   level: string;
   onPress: () => void;
 }
+
+export interface ILoginData {
+  username: string;
+  password: string;
+}
+
+export interface ICourses {
+  id: number;
+  code: string;
+  title: string;
+  description: string;
+  unit: number;
+  time: string;
+  day: string;
+  lecturer: number;
+}
